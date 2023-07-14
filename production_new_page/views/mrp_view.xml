@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mrp_form_inherit" model="ir.ui.view">
+        <field name="name">mrp.order.inherit</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <!--               <page string="Components" name="components">-->
+                <page string="Producción de Máquina" name="production">
+                    <group colspan="1">
+                        <group string="Piezas producidas">
+                            <field name="total_pieces" string="Total"/>
+                        </group>
+                        <group string="Piezas de Primera">
+                            <field name="theoretical_main_pieces" string="Teóricas"/>
+                            <field name="real_main_pieces" string="Reales"/>
+                        </group>
+                        <group string="Piezas Irregulares">
+                            <field name="irregular_pieces" string="Total"/>
+                        </group>
+                        <group string="Piezas Recuperadas">
+                            <field name="recovered_pieces" string="Total"/>
+                        </group>
+                        <group string="Piezas Descartadas">
+                            <field name="theoretical_discarded_pieces" string="Teóricas"/>
+                            <field name="real_discarded_pieces" string="Reales"/>
+                        </group>
+                        <group string="Tiempo">
+                            <field name="total_time_worked" string="Tiempo trabajado"/>
+                            <field name="lost_time" string="Tiempo perdido"/>
+                        </group>
+                        <group string="Máquina">
+                            <field name="machine_speed" string="Tiempo total trabajado"/>
+                            <field name="machine_efficiency" string="Tiempo de Velocidad"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
+
+
