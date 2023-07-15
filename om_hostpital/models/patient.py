@@ -33,4 +33,7 @@ class HospitalPatient(models.Model):
         print(vals,"-------")
         if not vals.get("note"):
             vals["note"] = "New patient"
+            # Adding sequence number to form view, reference comes from fields of model
+        if vals.get('reference', _('New')) == _('New'):
+            vals['reference'] = self.env['ir.sequence'].next_by_code('hospital.patient') or _('New')
         return super(HospitalPatient, self).create(vals)
