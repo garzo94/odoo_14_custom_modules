@@ -1,5 +1,5 @@
 =======================================
-Contacts filter
+Custom permissions
 =======================================
 
 .. !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -8,7 +8,7 @@ Contacts filter
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-This module filter the contacts on sale and purchase order by parents partners.
+This module add custom permissions to purchase.order and stock.picking.type
 
 Credits
 =======
