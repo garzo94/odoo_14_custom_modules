@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="inventory_movements_category">
+            <field name="name">Movimientos de Inventarios</field>
+            <field name="description"></field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record model="ir.module.category" id="purchase_category">
+            <field name="name">Compras</field>
+            <field name="description"></field>
+            <field name="sequence">10</field>
+        </record>
+        <!-- Inventory movements-->
+        <record id="inventory_movement_reception_delivery" model="res.groups">
+            <field name="name">Recepción y Entrega</field>
+            <field name="category_id" ref="inventory_movements_category"/>
+        </record>
+
+        <record id="inventory_movement_QA" model="res.groups">
+            <field name="name">Control de Calidad</field>
+            <field name="category_id" ref="inventory_movements_category"/>
+        </record>
+
+        <record id="inventory_movement_MP" model="res.groups">
+            <field name="name">Materia Prima</field>
+            <field name="category_id" ref="inventory_movements_category"/>
+        </record>
+
+        <record id="inventory_movement_plant" model="res.groups">
+            <field name="name">Planta</field>
+            <field name="category_id" ref="inventory_movements_category"/>
+        </record>
+
+        <record id="inventory_movement_PT" model="res.groups">
+            <field name="name">Producto Terminado</field>
+            <field name="category_id" ref="inventory_movements_category"/>
+        </record>
+
+        <record id="inventory_movement_rework" model="res.groups">
+            <field name="name">Reproceso</field>
+            <field name="category_id" ref="inventory_movements_category"/>
+        </record>
+        <!-- Purchase -->
+        <record id="raw_material" model="res.groups">
+            <field name="name">Materia Prima</field>
+            <field name="category_id" ref="purchase_category"/>
+        </record>
+
+        <record id="other_purchases_id" model="res.groups">
+            <field name="name">Otras Compras</field>
+            <field name="category_id" ref="purchase_category"/>
+        </record>
+
+        <!--########## Record Rules (Inventory movements category) ########-->
+
+        <!-- Record rule for "Recepciones y envios" group -->
+        <record id="inventory_record_rule" model="ir.rule">
+            <field name="name">Recepciones y Envios</field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4, ref('inventory_movement_reception_delivery'))]"/>
+        </record>
+
+
+        <!-- Record rule for "Control de Calidad" group -->
+        <record id="qa_record_rule" model="ir.rule">
+            <field name="name">Control de Calidad</field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4, ref('inventory_movement_QA'))]"/>
+        </record>
+
+        <!-- Record rule for "Materia Prima" group -->
+        <record id="inventory_record_rule_mp" model="ir.rule">
+            <field name="name">Materia Prima Record Rule</field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+<!--            <field name="domain_force">[('category', '=', 'materia_prima')]</field>-->
+            <field name="groups" eval="[(4, ref('inventory_movement_MP'))]"/>
+        </record>
+
+        <!-- Record rule for "Planta" group -->
+        <record id="inventory_record_rule_plant" model="ir.rule">
+            <field name="name">Planta </field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+<!--            <field name="domain_force">[('category', '=', 'planta')]</field>-->
+            <field name="groups" eval="[(4, ref('inventory_movement_plant'))]"/>
+        </record>
+
+        <!-- Record rule for "Producto Terminado" group -->
+        <record id="inventory_record_rule_pt" model="ir.rule">
+            <field name="name">Producto Terminado </field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+<!--            <field name="domain_force">[('category', '=', 'producto_terminado')]</field>-->
+            <field name="groups" eval="[(4, ref('inventory_movement_PT'))]"/>
+        </record>
+
+        <!-- Record rule for "Reproceso" group -->
+        <record id="inventory_record_rule_rework" model="ir.rule">
+            <field name="name">Reproceso </field>
+            <field name="model_id" ref="stock.model_stock_picking_type"/>
+<!--            <field name="domain_force">[('category', '=', 'reproceso')]</field>-->
+            <field name="groups" eval="[(4, ref('inventory_movement_rework'))]"/>
+        </record>
+
+        <!--########## Record Rules (Purchase) ########-->
+         <!-- Record rule for "Producto Terminado" group -->
+    <record id="purchase_record_rule" model="ir.rule">
+        <field name="name">Compras </field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+<!--        <field name="domain_force">[('category', '=', 'producto_terminado')]</field>-->
+        <field name="groups" eval="[(4, ref('inventory_movement_PT'))]"/>
+    </record>
+
+    <!-- Record rule for "Reproceso" group -->
+    <record id="record_rule_rework" model="ir.rule">
+        <field name="name">Otras Compras </field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+<!--        <field name="domain_force">[('category', '=', 'reproceso')]</field>-->
+        <field name="groups" eval="[(4, ref('inventory_movement_rework'))]"/>
+    </record>
+
+         <!--########## Record Rules (Accounting) ########-->
+<!--        <record id="Account_record_rule" model="ir.rule">-->
+<!--        <field name="name">Contabilidad Compras </field>-->
+<!--        <field name="model_id" ref="account.model_account_invoice"/>-->
+<!--&lt;!&ndash;        <field name="domain_force">[('category', '=', 'producto_terminado')]</field>&ndash;&gt;-->
+<!--        <field name="groups" eval="[(4, ref('inventory_movement_PT'))]"/>-->
+<!--    </record>-->
+
+<!--    &lt;!&ndash; Record rule for "Reproceso" group &ndash;&gt;-->
+<!--    <record id="record_rule_rework" model="ir.rule">-->
+<!--        <field name="name">Otras Compras </field>-->
+<!--        <field name="model_id" ref="account.model_account_invoice"/>-->
+<!--&lt;!&ndash;        <field name="domain_force">[('category', '=', 'reproceso')]</field>&ndash;&gt;-->
+<!--        <field name="groups" eval="[(4, ref('inventory_movement_rework'))]"/>-->
+<!--    </record>-->
+
+    </data>
+
+</odoo>
